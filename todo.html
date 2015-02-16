@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>Metronic | Pages - Todo</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/bootstrap-datepicker/css/datepicker3.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/jquery-notific8/jquery.notific8.min.css"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/pages/css/todo.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed page-quick-sidebar-over-content page-container-bg-solid page-compact">
+
+<!-- BEGIN PAGE CONTENT-->
+<script type="text/x-handlebars" id="application">
+<div class="row">
+<div class="col-md-12">
+	<!-- BEGIN TODO SIDEBAR -->
+	<div class="todo-ui">
+		<div class="todo-sidebar" style="height: 574px;">
+			<div class="portlet light" style="height: 100%;">
+				<div class="portlet-title">
+					<div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
+						<span class="caption-subject font-green-sharp bold uppercase">PROJECTS </span>
+						<span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view project list</span>
+					</div>
+					<div class="actions">
+						<div class="btn-group">
+							<a class="btn green-haze btn-circle btn-sm todo-projects-config" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<i class="icon-settings"></i> &nbsp; <i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="#"><i class="i"></i> New Project </a></li>
+								<li class="divider"></li>
+								<li><a href="#">Pending <span class="badge badge-danger">4 </span></a></li>
+								<li><a href="#">Completed <span class="badge badge-success">12 </span></a></li>
+								<li><a href="#">Overdue <span class="badge badge-warning">9 </span></a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="i"></i> Archived Projects </a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="portlet-body todo-project-list-content">
+					<div class="todo-project-list">
+						{{render "project_list"}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END TODO SIDEBAR -->
+
+		<!-- BEGIN TODO CONTENT -->
+		<div class="todo-content" style="height: 574px;">
+			<div class="portlet light" style="height: 100%;">
+				{{outlet}}
+			</div>
+		</div>
+		<!-- END TODO CONTENT -->
+	</div>
+</div>	
+</div>
+<!-- END PAGE CONTENT-->
+</script>
+
+<script type="text/x-handlebars" id="project_list">
+<ul class="nav nav-pills nav-stacked">
+{{#each project in model}}
+	<li>
+		{{#link-to "task" project.id_project}}{{project.name}}
+			<span class="badge badge-success"> {{project.task_number}} </span>
+		{{/link-to}}
+	</li>
+{{/each}}	
+</ul>
+</script>
+
+<script type="text/x-handlebars" id="task">
+<div class="portlet-title">TESTSETSET
+	<div class="caption">
+		<i class="icon-bar-chart font-green-sharp hide"></i>
+		<span class="caption-helper">PROJECT:</span> &nbsp; <span class="caption-subject font-green-sharp bold uppercase">{{model.project.name}}</span>
+	</div>
+	<div class="actions">
+		<div class="btn-group">
+			<a class="btn green-haze btn-circle btn-sm" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">MANAGE <i class="fa fa-angle-down"></i>
+			</a>
+			<ul class="dropdown-menu pull-right">
+				<li>{{#link-to "task.new"}}<i class="i"></i> New Task {{/link-to}}</li>
+				<li class="divider"></li>
+				<li><a href="#">Pending <span class="badge badge-danger">4 </span></a></li>
+				<li><a href="#">Completed <span class="badge badge-success">12 </span></a></li>
+				<li><a href="#">Overdue <span class="badge badge-warning">9 </span></a></li>
+				<li class="divider"></li>
+				<li><a href="#"><i class="i"></i> Delete Project </a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- end PROJECT HEAD -->
+<div class="portlet-body">
+	<div class="row">
+		<div class="col-md-5 col-sm-4">
+			<div class="scroller-remove" style="max-height: 600px;" data-always-visible="1" data-rail-visible="0" data-handle-color="#dae3e7">
+				<div class="todo-tasklist">
+					{{#each task in model.tasks}}
+					<div class="todo-tasklist-item todo-tasklist-item-border-green">
+						{{user-avatar id_user=task.id_user}}
+						<div class="todo-tasklist-item-title">
+							{{#link-to "task.edit" task.id_task}}
+							 	{{task.title}}
+							{{/link-to}}
+						
+						</div>
+						<div class="todo-tasklist-item-text">
+							 {{task.description}}
+						</div>
+						<div class="todo-tasklist-controls pull-left">
+							<span class="todo-tasklist-date"><i class="fa fa-calendar"></i> {{task.due_date}} </span>
+							<span class="todo-tasklist-badge badge badge-roundless">{{task.tags}}</span>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+		<div class="todo-tasklist-devider"></div>
+		<div class="col-md-7 col-sm-8">
+			<div class="scroller" style="max-height: 600px;" data-always-visible="0" data-rail-visible="0" data-handle-color="#dae3e7">
+				{{outlet}}
+			</div>
+		</div>
+	</div>
+</div>
+</script>
+
+<script type="text/x-handlebars" id="task/form">
+<div class="form-horizontal">
+	<!-- TASK HEAD -->
+	<div class="form">
+		<div class="form-group">
+			<div class="col-md-8 col-sm-8">
+				<div class="todo-taskbody-user">
+					{{user-avatar avatar=selectedUser.avatar width="50px" height="50px"}}
+					<span class="todo-username pull-left">
+						{{view "select" prompt="----" content=model.users 
+						selection=selectedUser optionValuePath="content.id_user" 
+							optionLabelPath="content.fullname"}}
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- END TASK HEAD -->
+		<!-- TASK TITLE -->
+		<div class="form-group">
+			<div class="col-md-12">
+				{{input type="text" class="form-control todo-taskbody-tasktitle" placeholder="Task Title..." value=model.task.title}}
+			</div>
+		</div>
+		<!-- TASK DESC -->
+		<div class="form-group">
+			<div class="col-md-12">
+				{{textarea class="form-control todo-taskbody-taskdesc" rows="8" placeholder="Task Description..." value=model.task.description}}
+			</div>
+		</div>
+		<!-- END TASK DESC -->
+		<!-- TASK DUE DATE -->
+		<div class="form-group">
+			<div class="col-md-12">
+				<div class="input-icon">
+					<i class="fa fa-calendar"></i>
+					{{view "date-picker" class="form-control todo-taskbody-due datepicker" placeholder="Due Date..." value=model.task.due_date}}
+				</div>
+			</div>
+		</div>
+		<!-- TASK TAGS -->
+		<div class="form-group">
+			<div class="col-md-12">
+				{{tag-picker selectedTags=model.task.tags}}
+			</div>
+		</div>
+		<!-- TASK TAGS -->
+		<div class="form-actions right todo-form-actions">
+			<button class="btn btn-circle btn-sm green-haze" {{action "save"}}>Save Changes</button>
+			<button class="btn btn-circle btn-sm btn-default" {{action "cancel"}}>Cancel</button>
+		</div>
+	</div>
+</div>
+</script>
+
+<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="js/libs/handlebars-v2.0.0.js" type="text/javascript"></script>
+<script src="js/libs//ember-1.9.1.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE PLUGINS & SCRIPTS -->
+<script type="text/javascript" src="assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="assets/global/plugins/select2/select2.min.js"></script>
+<script src="assets/admin/pages/scripts/todo.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-notific8/jquery.notific8.min.js"></script>
+<!-- END PAGE PLUGINS & SCRIPTS -->
+<script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="js/database.js" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
+<script src="js/extra.js" type="text/javascript"></script>
+
+<script>
+    jQuery(document).ready(function() {    
+        Metronic.init(); // init metronic core components
+		Demo.init(); // init demo features
+		Todo.init(); // init todo page
+    });
+</script>
+</body>
+<!-- END BODY -->
+</html>
